@@ -5,8 +5,8 @@
 const size_t MOD = 1000000007;
 const long long MAX = pow(2, 62);
 
-std::string Sum(std::string& num1, std::string& num2);
-std::string& D_n(const long long& n);
+std::string Sum(std::string num1, std::string num2);
+std::string D_n(const long long& n);
 bool isNum(const std::string& str);
 std::string Reverse(const std::string& str);
 inline size_t Min(const size_t& num1, const size_t& num2);
@@ -36,7 +36,7 @@ int main()
 	return 0;
 }
 
-std::string Sum(std::string& num1, std::string& num2)
+std::string Sum(std::string num1, std::string num2)
 {
 	if (!isNum(num1) || !isNum(num2))
 	{
@@ -70,10 +70,12 @@ std::string Sum(std::string& num1, std::string& num2)
 	sum.append(lstr.begin() + min_len + i, lstr.end());
 	return Reverse(sum);
 }
-std::string& D_n(const long long& n)
+std::string D_n(const long long& n)
 {
-	std::string str = "";
-	return str;
+	std::string num = "";
+	num.push_back((char)(n % 9 + '0'));
+	num.append(n / 9, '9');
+	return num;
 }
 bool isNum(const std::string& str)
 {
