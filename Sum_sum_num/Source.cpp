@@ -11,6 +11,7 @@ bool isNum(const std::string& str);
 std::string Reverse(const std::string& str);
 inline size_t Min(const size_t& num1, const size_t& num2);
 inline const std::string& Long_str(const std::string& str1, const std::string& str2);
+size_t Mod(std::string& num);
 
 int main()
 {
@@ -22,7 +23,7 @@ int main()
 		std::cin >> k;
 	}
 	std::string S_k = "0";
-	for (long long i = 1; i < k; i++)
+	for (long long i = 1; i <= k; i++)
 	{
 		S_k = Sum(S_k, D_n(i));
 		if (S_k == "0")
@@ -31,7 +32,7 @@ int main()
 			return 1;
 		}
 	}
-	std::cout << S_k << std::endl; //TODO: mod(%)
+	std::cout << Mod(S_k) << std::endl;
 
 	return 0;
 }
@@ -63,7 +64,8 @@ std::string Sum(std::string num1, std::string num2)
 	std::string lstr = Long_str(num1, num2);
 	while (in_mind)
 	{
-		temp = lstr[min_len + i++] + 1 - '0';// +1 because of in_mind
+		if (lstr[min_len + i] == '\0') temp = 1;
+		else temp = lstr[min_len + i++] + 1 - '0';// +1 because of in_mind
 		if (temp / 10 == 0) in_mind = false;
 		sum.push_back((char)(temp % 10) + '0');
 	}
@@ -110,4 +112,18 @@ inline size_t Min(const size_t& num1, const size_t& num2)
 inline const std::string& Long_str(const std::string& str1, const std::string& str2)
 {
 	return str1.length() < str2.length() ? str2 : str1;
+}
+size_t Mod(std::string& num)
+{
+	size_t reminder = 0;
+	for (std::string::iterator i = num.begin(); i != num.end(); ++i)
+	{
+		reminder *= 10;
+		reminder += *i - '0';
+		if (reminder > MOD)
+		{
+			reminder %= MOD;
+		}
+	}
+	return reminder;
 }
